@@ -12,6 +12,9 @@ import pizzashop.repository.MenuRepository;
 import pizzashop.repository.PaymentRepository;
 import pizzashop.service.OrderService;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("PaymentService Test Suite")
@@ -139,5 +142,45 @@ class PaymentServiceTest {
 
             assertEquals("Table number must be between 1 and 8", exception.getMessage());
         }
+    }
+
+    @Nested
+    @DisplayName("White Box Testing")
+    class WhiteBoxTesting{
+
+        @Test
+        @Order(8)
+        @DisplayName("TC8: Payments with type CASH or CARD should return the correct total amount ")
+        public void testGetTotalAmount_ValidType_Cash() {
+            Payment p1 = new Payment(1,PaymentType.CASH, 50.0);
+            Payment p2 = new Payment(2,PaymentType.CARD, 65.0);
+            Payment p3 = new Payment(7,PaymentType.CASH, 35.0);
+            payRepo.add(p1);
+            payRepo.add(p2);
+            payRepo.add(p3);
+            double result = paymentService.getTotalAmount(PaymentType.CASH);
+            assertEquals(85.0, result, 0.01);
+        }
+
+        @Test
+        @Order(9)
+        @DisplayName("TC9: Payments with type different then CASH or CARD should throw exception")
+        public void testGetTotalAmount_InvalidType_ThrowsException() {
+            Payment p1 = new Payment(1,PaymentType.CASH, 50.0);
+            Payment p2 = new Payment(2,PaymentType.CARD, 65.0);
+            Payment p3 = new Payment(7,PaymentType.CASH, 35.0);
+            payRepo.add(p1);
+            payRepo.add(p2);
+            payRepo.add(p3);
+            Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+                paymentService.getTotalAmount(PaymentType.VOUCHER);
+            });
+
+            assertEquals("Payment type must be CASH or CARD!", exception.getMessage());
+
+        }
+
+
+
     }
 }
