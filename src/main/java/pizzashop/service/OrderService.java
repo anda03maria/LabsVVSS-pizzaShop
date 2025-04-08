@@ -38,7 +38,10 @@ public class OrderService {
     public double getTotalAmount(PaymentType type){
         double total=0.0f;
         List<Payment> l=getPayments();
-        if ((l==null) ||(l.size()==0)) return total;
+        if(type != PaymentType.CASH && type != PaymentType.CARD)
+            throw new IllegalArgumentException("Payment type must be CASH or CARD!");
+        if ((l==null) || (l.size()==0))
+            return total;
         for (Payment p:l){
             if (p.getType().equals(type))
                 total+=p.getAmount();
