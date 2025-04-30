@@ -84,6 +84,29 @@
       <artifactId>controlsfx</artifactId>
       <version>11.0.1</version>
     </dependency>
+
+    <!-- Mockito pentru teste unitare -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.23.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Integrare Mockito + JUnit 5 -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>2.23.0</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-core</artifactId>
+          <version>5.2.0</version>
+          <scope>compile</scope>
+      </dependency>
+
   </dependencies>
 
   <build>
