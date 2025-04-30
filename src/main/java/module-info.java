@@ -10,4 +10,6 @@ module pizzashop {
     exports pizzashop;
     opens pizzashop.controller to javafx.fxml;
     exports pizzashop.controller;
+    exports pizzashop.repository to org.mockito; // sau to ALL-UNNAMED
+    requires org.mockito;
 }
